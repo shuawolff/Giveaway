@@ -18,3 +18,8 @@ There will be CRUD on items and a good filter for categories.
 
 I would like to add messaging in the app so the users can communicate about the items directly in the app. Along with an embedded map so people can see exactly how far the item is from them. 
 At first it would be strictly for free item giveaways, possibly later we can add the ability to sell items and pay directly within the app with paypal or something similar.
+
+### ERD
+
+![screen shot 2018-09-04 at 9 50 17 am](https://user-images.githubusercontent.com/30534934/45035464-0c84a480-b028-11e8-96d6-f13a5c586d1d.png)
+
