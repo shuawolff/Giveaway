@@ -11,9 +11,11 @@ class App extends Component {
     super(props);
     this.state = {
       items: [],
-      categories: []
+      categories: [],
+      showModal: "modal is-active"
     }
     this.itemFilters = this.itemFilters.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
   componentDidMount() {
     getAllItems()
@@ -31,12 +33,18 @@ class App extends Component {
         .then(data => this.setState({ items: data.items }));
     }
   }
+  toggleModal() {
+    this.setState({
+      showModal: "modal"
+    })
+  }
   render() {
     return (
-      <div className="App">
+      <div className="grid">
         <Header />
         <Filter categories={this.state.categories} onSubmit={this.itemFilters} />
-        <Items items={this.state.items} />
+        <Items items={this.state.items} toggle={this.toggleModal} />
+        <h1 className="Footer"> Created</h1>
       </div>
     );
   }

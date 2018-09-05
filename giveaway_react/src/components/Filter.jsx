@@ -25,6 +25,7 @@ class Filter extends Component {
     }
     render() {
         return (
+            <aside>
             <form onSubmit={e => {
                 e.preventDefault()
                 console.log(this.state.checked)
@@ -39,6 +40,7 @@ class Filter extends Component {
                 })}
                 <input type="submit" value="Filter" />
             </form>
+            </aside>
         )
     }
 }
