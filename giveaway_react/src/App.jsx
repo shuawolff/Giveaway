@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { getAllItems, getAllCategories } from './services/api';
+import Header from './components/Header';
+import Filter from './components/Filter';
 import './App.css';
 
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      allItems: [],
+      categories: []
+    }
+  }
+  componentDidMount() {
+    getAllItems()
+      .then(data => this.setState({ allItems: data.items }));
+    getAllCategories()
+      .then(data => this.setState({categories: data.categories}));
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Header />
+        <Filter categories={this.state.categories}/>
       </div>
     );
   }
