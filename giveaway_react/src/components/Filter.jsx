@@ -20,11 +20,15 @@ class Filter extends Component {
             })
         }
     }
+    FilterItems() {
+        this.props.onSubmit(this.state.checked);
+    }
     render() {
         return (
             <form onSubmit={e => {
                 e.preventDefault()
                 console.log(this.state.checked)
+                this.FilterItems();
             }
             }>
                 {this.props.categories.map(c => {
