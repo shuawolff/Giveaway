@@ -17,7 +17,13 @@ header {
   grid-area: header;
   text-align: center;
   font-size: 75px;
-  background: lightblue;
+  background: black;
+  position: fixed;
+  top:0px; 
+  left:0px; 
+  height:150px; 
+  right:0px;
+  overflow:hidden;
 }
 
 main {
@@ -26,13 +32,16 @@ main {
   background: white;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 100px;
 }
 
 aside {
   grid-area: side;
   margin-left: 0.5rem;
   background: white;
-  font-size: 25px;
+  font-size: 2vw;
+  position: fixed;
+  margin-top: 175px;
 }
 
 footer {
@@ -41,7 +50,7 @@ footer {
 
 .child {
   background: white;
-  height: 250px;
+  height: 260px;
   width: 300px;
   display: inline-block;
   width: calc(100% * (1/4) - 8px - 1px);
@@ -53,4 +62,39 @@ footer {
 .img {
   height: 175px;
   width: 200px;
+}
+
+.modal-card-head {
+  height: 80px;
+}
+
+#input {
+  background: white;
+  height: 35px;
+  width: 20vw;
+  margin-left: 65vw;
+  margin-top: 10px;
+  font-size: 20px;
+  margin-bottom: 1px;
+}
+
+.is-grouped {
+  margin-top: 10px;
+  margin-right: 10vw;
+}
+
+#is-info{
+  margin-top: 10px;
+  width: 8vw;
+  font-size: 1.6vw;
+  height: 5vh;
+}
+
+label {
+  margin-right: 5px;
+}
+
+nav{
+  font-size: 15px;
+  float: right;
 }

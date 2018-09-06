@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import OneItem from '../components/oneItem';
+import {oneItem} from '../services/api';
 
 class Items extends Component {
   constructor(props) {
@@ -11,15 +12,40 @@ class Items extends Component {
       item: []
     }
     this.toggleShow = this.toggleShow.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
+
+
 
   toggleShow(e) {
     e.preventDefault();
-    console.log(e.target.id)
-    // this.setState({
-    //   showModal: "modal is-active",
-    //   item: e.target.id
-    // })
+    oneItem(e.target.id)
+    .then(data => this.setState({ item: data.item }));
+    this.setState({
+      showModal: "modal is-active",
+      item: e.target.id
+    })
+  }
+  toggleloginModal() {
+    this.state.loginModal === "modal is-active" ?
+    this.setState({
+      showModal: "modal"
+    })
+    :
+    this.setState({
+      showModal: "modal is-active"
+    })
+  }
+
+  toggleModal() {
+    this.state.showModal === "modal is-active" ?
+    this.setState({
+      showModal: "modal"
+    })
+    :
+    this.setState({
+      showModal: "modal is-active"
+    })
   }
 
   render() {
@@ -32,7 +58,7 @@ class Items extends Component {
             Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
           </div>)
         })}
-        <OneItem active={this.state.showModal} />
+        <OneItem active={this.state.showModal} item={this.state.item} toggle={this.toggleModal} />
       </main>
     )
   }

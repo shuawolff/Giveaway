@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  # before_action :authenticate_user
     def index
       if params[:category_id]
         ids = params[:category_id].to_s.split("").map(&:to_i)
@@ -49,7 +50,8 @@ class ItemsController < ApplicationController
             :description,
             :image_url,
             :address,
-            :categories
+            :categories,
+            :user_id
           )
       end
 end
