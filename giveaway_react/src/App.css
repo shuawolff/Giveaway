@@ -51,9 +51,9 @@ footer {
 .child {
   background: white;
   height: 260px;
-  width: 300px;
   display: inline-block;
-  width: calc(100% * (1/4) - 8px - 1px);
+  width: calc(100% * (1/4));
+  min-width: 150px;
   margin:10px 0 0 2%;
   border: 1px black solid;
   font-size: 18px;
@@ -97,4 +97,5 @@ label {
 nav{
   font-size: 15px;
   float: right;
+  width: 125px
 }

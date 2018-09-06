@@ -13,7 +13,7 @@ function Header(props) {
                   Account
           </a>
                 <div class="navbar-dropdown is-right">
-                  <a class="navbar-item">
+                  <a onClick={props.admin} class="navbar-item">
                     Account Info
       </a>
                   <a onClick={props.logout} class="navbar-item">
@@ -45,6 +45,7 @@ function Header(props) {
           </a>
           </p>
         </div>
+        <a className="button">Create New Item</a>
       </header >
       <div className={props.active}>
         <div className="modal-background"></div>

@@ -26,6 +26,7 @@ class Filter extends Component {
   render() {
     return (
       <aside>
+        <a className="button">Create New Item</a>
         <h2>Filter Items:</h2>
         <br/>
         <form onSubmit={e => {
