@@ -1,6 +1,9 @@
 import React from 'react';
 
 function Header(props) {
+  function toggle() {
+    props.toggleLogin('loginModal')
+  }
   return (
     <div>
       <header>
@@ -13,6 +16,9 @@ function Header(props) {
                   Account
           </a>
                 <div class="navbar-dropdown is-right">
+                  <a  onClick={props.createAdmin} class="navbar-item">
+                    Create New Item
+      </a>
                   <a onClick={props.admin} class="navbar-item">
                     Account Info
       </a>
@@ -27,7 +33,7 @@ function Header(props) {
                   Log In
           </a>
                 <div class="navbar-dropdown is-right">
-                  <a onClick={props.toggleLogin} class="navbar-item">
+                  <a onClick={toggle} class="navbar-item">
                     Log in
       </a>
                 </div>
@@ -52,7 +58,7 @@ function Header(props) {
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">Log In</p>
-            <button onClick={props.toggleLogin} className="delete" aria-label="close"></button>
+            <button onClick={toggle} className="delete" aria-label="close"></button>
           </header>
           <section className="modal-card-body">
             <form>
@@ -61,7 +67,7 @@ function Header(props) {
               <input
                 name="email"
                 onChange={props.handleChange}
-                value={props.email.value}
+                value={props.email}
                 type="email"
               />
               <br /><br />
@@ -70,7 +76,7 @@ function Header(props) {
               <input
                 name="password"
                 onChange={props.handleChange}
-                value={props.password.value}
+                value={props.password}
                 type="password"
               />
             </form>

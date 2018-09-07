@@ -14,6 +14,7 @@ class App extends Component {
       items: [],
       categories: [],
       loginModal: "modal",
+      createModal: "modal",
       email: '',
       password: '',
       isLoggedIn: !!localStorage.getItem("jwt"),
@@ -21,13 +22,14 @@ class App extends Component {
       currentView: 'Homepage'
     }
     this.itemFilters = this.itemFilters.bind(this)
-    this.toggleloginModal = this.toggleloginModal.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
     this.register = this.register.bind(this)
     this.setAdmin = this.setAdmin.bind(this)
     this.setHomepage = this.setHomepage.bind(this)
+    this.setAdminCreate = this.setAdminCreate.bind(this)
   }
   componentDidMount() {
     getAllItems()
@@ -47,15 +49,15 @@ class App extends Component {
     }
   }
 
-  toggleloginModal() {
-    this.state.loginModal === "modal is-active" ?
+  toggleModal(modal) {
+    this.state[modal] === "modal is-active" ?
       this.setState({
-        loginModal: "modal",
+        [modal]: "modal",
         registering: ''
       })
       :
       this.setState({
-        loginModal: "modal is-active",
+        [modal]: "modal is-active",
         registering: ''
       })
   }
@@ -70,7 +72,7 @@ class App extends Component {
     localStorage.removeItem("jwt")
     this.setState({
       isLoggedIn: false,
-      name: "",
+      password: "",
       email: "",
       currentView: "Homepage"
     })
@@ -79,6 +81,13 @@ class App extends Component {
   setAdmin() {
     this.setState({
       currentView: 'Admin'
+    })
+  }
+
+  setAdminCreate() {
+    this.setState({
+      currentView: 'Admin',
+      createModal: 'modal is-active'
     })
   }
 
@@ -107,7 +116,7 @@ class App extends Component {
       .then(() => {
         this.state.isLoggedIn === true
           ?
-          this.toggleloginModal()
+          this.toggleModal('loginModal')
           :
           null
       })
@@ -143,21 +152,21 @@ class App extends Component {
       case 'Homepage':
         return (
           <React.Fragment>
-          <Filter categories={this.state.categories} onSubmit={this.itemFilters} />
-          <Items items={this.state.items} toggle={this.toggleModal} />
+            <Filter categories={this.state.categories} onSubmit={this.itemFilters} isLoggedIn={this.state.isLoggedIn} toggleLogin={this.toggleModal} />
+            <Items items={this.state.items} toggle={this.toggleModal} />
           </React.Fragment>
-    )
-    case 'Admin':
-    return(
-      <Create homepage={this.setHomepage}/>
-    )
+        )
+      case 'Admin':
+        return (
+          <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} />
+        )
     }
   }
 
   render() {
     return (
       <div className="grid">
-        <Header toggleLogin={this.toggleloginModal}
+        <Header toggleLogin={this.toggleModal}
           active={this.state.loginModal}
           handleChange={this.handleChange}
           email={this.state.email}
@@ -168,6 +177,7 @@ class App extends Component {
           register={this.register}
           footer={this.state.registering}
           admin={this.setAdmin}
+          createAdmin={this.setAdminCreate}
         />
         {this.switchView()}
         <h1 className="Footer"> Created</h1>

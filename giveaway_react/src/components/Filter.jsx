@@ -20,13 +20,13 @@ class Filter extends Component {
       })
     }
   }
+
   FilterItems() {
     this.props.onSubmit(this.state.checked);
   }
   render() {
     return (
       <aside>
-        <a className="button">Create New Item</a>
         <h2>Filter Items:</h2>
         <br/>
         <form onSubmit={e => {
