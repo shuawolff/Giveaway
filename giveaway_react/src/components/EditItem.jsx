@@ -47,7 +47,7 @@ class EditItem extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     this.props.update(this.state);
-    this.toggle;
+    this.props.toggle('editModal');
   }
 
   render() {
@@ -105,6 +105,7 @@ class EditItem extends Component {
                 <footer className="modal-card-foot">
                   <button type="submit" value="Edit Item" className="button is-success">Submit</button>
                   <button onClick={this.toggle} className="button">Cancel</button>
+                  <button className="button is-danger">Delete Item</button>
                 </footer>
               </form>
             </section>

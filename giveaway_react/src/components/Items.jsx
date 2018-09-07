@@ -15,8 +15,6 @@ class Items extends Component {
     this.toggleModal = this.toggleModal.bind(this)
   }
 
-
-
   toggleShow(e) {
     e.preventDefault();
     oneItem(e.target.id)
@@ -26,6 +24,7 @@ class Items extends Component {
       item: e.target.id
     })
   }
+  
   toggleloginModal() {
     this.state.loginModal === "modal is-active" ?
     this.setState({

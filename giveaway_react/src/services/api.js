@@ -49,3 +49,17 @@ export function saveItem(item) {
     return fetch(`${BASE_URL}/items/${item.id}`, opts)
       .then(resp => resp.json());
   };
+
+  export function deleteItem(itemId) {
+    const opts ={
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    return fetch(`${BASE_URL}/items/${itemId}`, opts)
+    .then(resp => "deleted")
+    .catch(err => {
+      throw Error(err);
+    })
+  };

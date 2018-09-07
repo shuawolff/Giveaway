@@ -12,7 +12,7 @@ class CreateItem extends Component {
       address: '',
       image_url: 'https://static.thenounproject.com/png/187803-200.png',
       categories: '',
-      user_id: null
+      user_id: jwtDecode(localStorage.getItem("jwt")).sub
     }
     this.toggle = this.toggle.bind(this)
     this.onClick = this.onClick.bind(this)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import OneItem from './oneItem';
-import {userItems, oneItem, updateItem} from '../services/api';
+import {userItems, oneItem, updateItem, deleteItem} from '../services/api';
 import jwtDecode from 'jwt-decode';
 
 class UserItems extends Component {
@@ -16,7 +16,6 @@ class UserItems extends Component {
     this.toggleShow = this.toggleShow.bind(this)
     this.toggleShowModal = this.toggleShowModal.bind(this)
     this.handeUpdate = this.handeUpdate.bind(this)
-    // this.toggleModal = this.toggleModal.bind(this)
   }
   componentDidMount() {
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
@@ -36,6 +35,14 @@ class UserItems extends Component {
     });
   }
 
+  handleDelete(id) {
+    let user = jwtDecode(localStorage.getItem("jwt")).sub;
+      deleteItem(id)
+      .then(data => {
+        userItems(user)
+        .then(data => this.setState({ items: data.items }));
+      })
+  }
 
   toggleShow(e) {
     e.preventDefault();
