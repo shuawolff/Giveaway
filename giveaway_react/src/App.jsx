@@ -16,11 +16,12 @@ class App extends Component {
       categories: [],
       loginModal: "modal",
       createModal: "modal",
+      editModal: "modal",
       email: '',
       password: '',
       isLoggedIn: !!localStorage.getItem("jwt"),
       registering: '',
-      currentView: 'Homepage'
+      currentView: 'Admin'
     }
     this.itemFilters = this.itemFilters.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
@@ -52,6 +53,7 @@ class App extends Component {
   }
 
   toggleModal(modal) {
+    debugger
     this.state[modal] === "modal is-active" ?
       this.setState({
         [modal]: "modal",
@@ -170,7 +172,7 @@ class App extends Component {
         return (
           <React.Fragment>
           <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} categories={this.state.categories} onSubmit={this.saveItem}/>
-          <UserItems />
+          <UserItems editModal={this.state.editModal} toggle={this.toggleModal}/>
           </React.Fragment>
         )
     }

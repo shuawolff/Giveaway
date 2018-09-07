@@ -58,7 +58,7 @@ class Items extends Component {
             Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
           </div>)
         })}
-        <OneItem active={this.state.showModal} item={this.state.item} toggle={this.toggleModal} />
+        <OneItem active={this.state.showModal} item={this.state.item} toggleShow={this.toggleModal} editModal="modal" />
       </main>
     )
   }

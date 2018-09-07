@@ -37,3 +37,15 @@ export function saveItem(item) {
     return fetch(`${BASE_URL}/items`, opts)
       .then(resp => resp.json());
   };
+
+  export function updateItem(item) {
+    const opts = {
+      method: 'PUT',
+      body: JSON.stringify(item),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    return fetch(`${BASE_URL}/items/${item.id}`, opts)
+      .then(resp => resp.json());
+  };
