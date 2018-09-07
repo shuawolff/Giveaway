@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
+
+console.log(jwtDecode(localStorage.getItem("jwt")))
 
 class CreateItem extends Component {
   constructor(props) {
@@ -7,17 +10,79 @@ class CreateItem extends Component {
       name: '',
       description: '',
       address: '',
-      image_url: 'https://static.thenounproject.com/png/187803-200.png'
+      image_url: 'https://static.thenounproject.com/png/187803-200.png',
+      categories: '',
+      user_id: null
     }
     this.toggle = this.toggle.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  componentDidMount() {
+    let user = jwtDecode(localStorage.getItem("jwt")).sub;
+    this.props.categories.map(c => {
+      this.setState({
+       [c.name]: false,
+       user_id: user
+     })
+   })
   }
   toggle() {
     this.props.toggle('createModal')
+    this.setState({
+      name: '',
+      description: '',
+      address: '',
+      image_url: 'https://static.thenounproject.com/png/187803-200.png',
+      categories: '',
+    })
+    this.props.categories.map(c => {
+       this.setState({
+        [c.name]: false
+      })
+    })
   }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+
+  handleSubmit(evt) {
+    debugger
+    evt.preventDefault();
+    this.props.onSubmit(this.state);
+    this.setState({
+      name: '',
+      description: '',
+      address: '',
+      image_url: 'https://static.thenounproject.com/png/187803-200.png',
+      categories: ''
+    })
+    this.props.toggle('createModal');
+  }
+
+
+  onClick(e) {
+    let num = e.target.value
+    let name = e.target.name
+    if (this.state[name]=== true) {
+      this.setState(prevState => {
+        prevState.categories = prevState.categories.replace(num, "")
+      })
+      this.setState({
+        [name]: false
+      })
+    } else {
+      this.setState(prevState => {
+        prevState.categories += num
+      })
+      this.setState({
+        [name]: true
+      })
+    }
   }
 
   render() {
@@ -35,30 +100,61 @@ class CreateItem extends Component {
               <button onClick={this.toggle} className="delete" aria-label="close"></button>
             </header>
             <section className="modal-card-body">
-              <form>
+              <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Item Name: </label>
-                <br />
                 <input
-                      name="name"
-                      onChange={this.handleChange}
-                      value={this.state.name}
-                      type="name"
-                    />
-                    <br /><br />
-                    <label htmlFor="description">Description:</label>
-                    <br />
-                    <input
-                      name="description"
-                      onChange={this.handleChange}
-                      value={this.state.description}
-                      type="description"
-                    />
-              </form>
+                  name="name"
+                  onChange={this.handleChange}
+                  value={this.state.name}
+                  required="required"
+                  type="name"
+                  placeholder="Name"
+                />
+                <br /><br />
+                <label htmlFor="description">Description:</label>
+                <input
+                  name="description"
+                  onChange={this.handleChange}
+                  required="required"
+                  value={this.state.description}
+                  type="description"
+                  placeholder="Description"
+                />
+                <br />
+                <label htmlFor="address">Address:</label>
+                <input
+                  name="address"
+                  onChange={this.handleChange}
+                  value={this.state.address}
+                  required="required"
+                  type="address"
+                  placeholder="address"
+                />
+                <br />
+                <label htmlFor="Image_url">Image URL:</label>
+                <input
+                  name="image_url"
+                  onChange={this.handleChange}
+                  value={this.state.image_url}
+                  required="required"
+                  type="image_url"
+                  placeholder="image_url"
+                />
+                <br />
+                <label htmlFor="Image_url">Select all categories that apply:</label>
+                {this.props.categories.map(c => {
+                  return (<div key={c.id}>
+                    <label htmlFor={c.name}>{c.name}</label>
+                    <input onClick={this.onClick} type="checkbox" name={c.name} value={c.id} checked={this.state[c.name]} /><br />
+                  </div>)
+                })}
               <br />
-            </section>
             <footer className="modal-card-foot">
-              <p>{this.props.footer}</p>
+              <button type="submit" value="Create Item" className="button is-success">Create Item</button>
+              <button onClick={this.toggle} className="button">Cancel</button>
             </footer>
+              </form>
+            </section>
           </div>
         </div>
       </React.Fragment>

@@ -24,3 +24,16 @@ export function userItems(id) {
     return fetch(BASE_URL + `/users/${id}/items`)
         .then(resp => resp.json())
 }
+
+export function saveItem(item) {
+    const opts = {
+      method: 'POST',
+      body: JSON.stringify(item),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+  
+    return fetch(`${BASE_URL}/items`, opts)
+      .then(resp => resp.json());
+  };

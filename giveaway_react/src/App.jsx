@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { getAllItems, getAllCategories, FilteredItems } from './services/api';
+import { getAllItems, getAllCategories, FilteredItems, saveItem } from './services/api';
 import Header from './components/Header';
 import Filter from './components/Filter';
 import Items from './components/Items';
 import Create from './components/createItem';
+import UserItems from './components/showUserItems'
 import './App.css';
 
 console.log(localStorage.getItem("jwt"));
@@ -30,6 +31,7 @@ class App extends Component {
     this.setAdmin = this.setAdmin.bind(this)
     this.setHomepage = this.setHomepage.bind(this)
     this.setAdminCreate = this.setAdminCreate.bind(this)
+    this.saveItem = this.saveItem.bind(this)
   }
   componentDidMount() {
     getAllItems()
@@ -65,6 +67,14 @@ class App extends Component {
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
+    })
+  }
+
+  saveItem(item) {
+    saveItem({"name": item.name, "address": item.address, "description": item.description, "user_id": item.user_id, "image_url": item.image_url, "categories": item.categories})
+    .then(data => {
+      getAllItems()
+      .then(data => this.setState({ items: data.items }));
     })
   }
 
@@ -158,7 +168,10 @@ class App extends Component {
         )
       case 'Admin':
         return (
-          <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} />
+          <React.Fragment>
+          <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} categories={this.state.categories} onSubmit={this.saveItem}/>
+          <UserItems />
+          </React.Fragment>
         )
     }
   }
