@@ -43,13 +43,13 @@ function Header(props) {
         <h1>Giveaway</h1>
         <div className="field is-grouped">
           <p className="control is-expanded">
-            <input id="input" className="input" type="text" placeholder="Find an item" />
+            <input onChange={props.handleChange} id="input" className="input" name="searchBar" type="text" placeholder="Find an item by name" />
           </p>
-          <p className="control">
+          {/* <p className="control">
             <a id="is-info" className="button is-info">
               Search
           </a>
-          </p>
+          </p> */}
         </div>
         <a className="button">Create New Item</a>
       </header >

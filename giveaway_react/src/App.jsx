@@ -7,7 +7,6 @@ import Create from './components/createItem';
 import UserItems from './components/showUserItems'
 import './App.css';
 
-console.log(localStorage.getItem("jwt"));
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,8 +20,9 @@ class App extends Component {
       password: '',
       isLoggedIn: !!localStorage.getItem("jwt"),
       registering: '',
-      currentView: 'Admin',
-      rerender: true
+      currentView: 'Homepage',
+      rerender: true,
+      searchBar: ''
     }
     this.itemFilters = this.itemFilters.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
@@ -34,6 +34,7 @@ class App extends Component {
     this.setHomepage = this.setHomepage.bind(this)
     this.setAdminCreate = this.setAdminCreate.bind(this)
     this.saveItem = this.saveItem.bind(this)
+    this.rerenderAfterDelete = this.rerenderAfterDelete.bind(this)
   }
   componentDidMount() {
     getAllItems()
@@ -42,6 +43,18 @@ class App extends Component {
       .then(data => this.setState({ categories: data.categories }));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // Checks if the state changed and a new and if so rerenders the items
+    if (this.state.createModal !== prevState.createModal) {
+      getAllItems()
+      .then(data => this.setState({ items: data.items }));
+  }
+  if (this.state.rerender !== prevState.rerender) {
+    getAllItems()
+    .then(data => this.setState({ items: data.items }));
+}
+
+}
 
   itemFilters(categories) {
     if (categories) {
@@ -112,6 +125,12 @@ class App extends Component {
     })
   }
 
+  rerenderAfterDelete() {
+    this.setState({
+      rerender: !this.state.rerender
+    })
+  }
+
   login() {
     const url = `http://localhost:3000/user_token`;
     const body = { "auth": { "email": this.state.email, "password": this.state.password } }
@@ -168,14 +187,14 @@ class App extends Component {
         return (
           <React.Fragment>
             <Filter categories={this.state.categories} onSubmit={this.itemFilters} isLoggedIn={this.state.isLoggedIn} toggleLogin={this.toggleModal} />
-            <Items items={this.state.items} toggle={this.toggleModal} />
+            <Items items={this.state.items} toggle={this.toggleModal} search={this.state.searchBar}/>
           </React.Fragment>
         )
       case 'Admin':
         return (
           <React.Fragment>
           <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} categories={this.state.categories} onSubmit={this.saveItem}/>
-          <UserItems editModal={this.state.editModal} toggle={this.toggleModal} rerender={this.state.rerender}/>
+          <UserItems editModal={this.state.editModal} toggle={this.toggleModal} rerender={this.rerenderAfterDelete} rerenderCreate={this.state.rerender} search={this.state.searchBar}/>
           </React.Fragment>
         )
     }

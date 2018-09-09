@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
 
-console.log(jwtDecode(localStorage.getItem("jwt")))
 
 class CreateItem extends Component {
   constructor(props) {

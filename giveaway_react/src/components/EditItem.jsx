@@ -30,7 +30,6 @@ class EditItem extends Component {
   }
 
   toggle() {
-    debugger
     this.props.toggle('editModal')
     this.setState({
       name: '',
@@ -53,7 +52,6 @@ class EditItem extends Component {
   }
 
   handleDelete(e) {
-    debugger
     e.preventDefault();
     this.props.delete(this.state.id)
     this.toggle();

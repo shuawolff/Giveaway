@@ -24,7 +24,7 @@ class Items extends Component {
       item: e.target.id
     })
   }
-  
+
   toggleloginModal() {
     this.state.loginModal === "modal is-active" ?
     this.setState({
@@ -48,9 +48,10 @@ class Items extends Component {
   }
 
   render() {
+    let items = this.props.items.filter(item => item.name.toLowerCase().includes(this.props.search.toLowerCase()));
     return (
       <main>
-        {this.props.items.map(item => {
+        {items.map(item => {
           return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
             <p id={item.id}>{item.name}</p>
             <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />

@@ -24,13 +24,12 @@ class UserItems extends Component {
       .then(data => this.setState({ items: data.items }));
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     // Checks if the props changed and if so resets the state
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
-    if (this.props.rerender !== prevProps.rerender) {
+    if (this.props.rerenderCreate !== prevProps.rerenderCreate) {
         userItems(user)
         .then(data => {
-          debugger
           this.setState({
           items: data.items 
         });
@@ -54,12 +53,14 @@ handleDelete(id) {
   let user = jwtDecode(localStorage.getItem("jwt")).sub;
   deleteItem(id)
     .then(data => {
+      this.props.rerender();
       this.setState({
         showModal: 'modal'
       })
       userItems(user)
         .then(data => this.setState({ items: data.items }));
     })
+    this.props.rerender();
 }
 
 toggleShow(e) {
@@ -84,9 +85,10 @@ toggleShowModal() {
 }
 
 render() {
+  let items = this.state.items.filter(item => item.name.toLowerCase().includes(this.props.search.toLowerCase()));
   return (
     <main>
-      {this.state.items.map(item => {
+      {items.map(item => {
         return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
           <p id={item.id}>{item.name}</p>
           <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />
