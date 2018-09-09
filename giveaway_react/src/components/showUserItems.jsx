@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import OneItem from './oneItem';
-import {userItems, oneItem, updateItem, deleteItem} from '../services/api';
+import { userItems, oneItem, updateItem, deleteItem } from '../services/api';
 import jwtDecode from 'jwt-decode';
 
 class UserItems extends Component {
@@ -11,7 +11,7 @@ class UserItems extends Component {
     this.state = {
       showModal: "modal",
       items: [],
-      item: []
+      item: [],
     }
     this.toggleShow = this.toggleShow.bind(this)
     this.toggleShowModal = this.toggleShowModal.bind(this)
@@ -24,42 +24,56 @@ class UserItems extends Component {
       .then(data => this.setState({ items: data.items }));
   }
 
-  handeUpdate(item) {
+  componentDidUpdate(prevProps) {
+    // Checks if the props changed and if so resets the state
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
-    updateItem(item)
+    if (this.props.rerender !== prevProps.rerender) {
+        userItems(user)
+        .then(data => {
+          debugger
+          this.setState({
+          items: data.items 
+        });
+      })
+  }
+}
+
+handeUpdate(item) {
+  let user = jwtDecode(localStorage.getItem("jwt")).sub;
+  updateItem(item)
     .then(data => {
       this.setState({
         item: data
       })
       userItems(user)
-      .then(data => this.setState({ items: data.items }));
-    });
-  }
-
-  handleDelete(id) {
-    let user = jwtDecode(localStorage.getItem("jwt")).sub;
-      deleteItem(id)
-      .then(data => {
-          this.setState({
-              showModal: 'modal'
-          })
-        userItems(user)
         .then(data => this.setState({ items: data.items }));
+    });
+}
+
+handleDelete(id) {
+  let user = jwtDecode(localStorage.getItem("jwt")).sub;
+  deleteItem(id)
+    .then(data => {
+      this.setState({
+        showModal: 'modal'
       })
-  }
-
-  toggleShow(e) {
-    e.preventDefault();
-    oneItem(e.target.id)
-    .then(data => this.setState({ item: data.item }));
-    this.setState({
-      showModal: "modal is-active",
-      item: e.target.id
+      userItems(user)
+        .then(data => this.setState({ items: data.items }));
     })
-  }
+}
 
-  toggleShowModal() {
-    this.state.showModal === "modal is-active" ?
+toggleShow(e) {
+  e.preventDefault();
+  oneItem(e.target.id)
+    .then(data => this.setState({ item: data.item }));
+  this.setState({
+    showModal: "modal is-active",
+    item: e.target.id
+  })
+}
+
+toggleShowModal() {
+  this.state.showModal === "modal is-active" ?
     this.setState({
       showModal: "modal"
     })
@@ -67,22 +81,22 @@ class UserItems extends Component {
     this.setState({
       showModal: "modal is-active"
     })
-  }
+}
 
-  render() {
-    return (
-      <main>
-        {this.state.items.map(item => {
-          return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
-            <p id={item.id}>{item.name}</p>
-            <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />
-            Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
-          </div>)
-        })}
-        <OneItem active={this.state.showModal} item={this.state.item} toggle={this.props.toggle} toggleShow={this.toggleShowModal} edit={true} editModal={this.props.editModal} update={this.handeUpdate} delete={this.handleDelete}/>
-      </main>
-    )
-  }
+render() {
+  return (
+    <main>
+      {this.state.items.map(item => {
+        return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
+          <p id={item.id}>{item.name}</p>
+          <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />
+          Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
+        </div>)
+      })}
+      <OneItem active={this.state.showModal} item={this.state.item} toggle={this.props.toggle} toggleShow={this.toggleShowModal} edit={true} editModal={this.props.editModal} update={this.handeUpdate} delete={this.handleDelete} />
+    </main>
+  )
+}
 }
 
 export default UserItems;

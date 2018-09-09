@@ -21,7 +21,8 @@ class App extends Component {
       password: '',
       isLoggedIn: !!localStorage.getItem("jwt"),
       registering: '',
-      currentView: 'Admin'
+      currentView: 'Admin',
+      rerender: true
     }
     this.itemFilters = this.itemFilters.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
@@ -75,7 +76,10 @@ class App extends Component {
     saveItem({"name": item.name, "address": item.address, "description": item.description, "user_id": item.user_id, "image_url": item.image_url, "categories": item.categories})
     .then(data => {
       getAllItems()
-      .then(data => this.setState({ items: data.items }));
+      .then(data => this.setState({ 
+        items: data.items,
+        rerender: !this.state.rerender 
+      }));
     })
   }
 
@@ -171,7 +175,7 @@ class App extends Component {
         return (
           <React.Fragment>
           <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} categories={this.state.categories} onSubmit={this.saveItem}/>
-          <UserItems editModal={this.state.editModal} toggle={this.toggleModal}/>
+          <UserItems editModal={this.state.editModal} toggle={this.toggleModal} rerender={this.state.rerender}/>
           </React.Fragment>
         )
     }
