@@ -53,7 +53,6 @@ class App extends Component {
   }
 
   toggleModal(modal) {
-    debugger
     this.state[modal] === "modal is-active" ?
       this.setState({
         [modal]: "modal",

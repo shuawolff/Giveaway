@@ -13,6 +13,7 @@ class EditItem extends Component {
     this.toggle = this.toggle.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidUpdate(prevProps) {
@@ -29,6 +30,7 @@ class EditItem extends Component {
   }
 
   toggle() {
+    debugger
     this.props.toggle('editModal')
     this.setState({
       name: '',
@@ -48,6 +50,13 @@ class EditItem extends Component {
     evt.preventDefault();
     this.props.update(this.state);
     this.props.toggle('editModal');
+  }
+
+  handleDelete(e) {
+    debugger
+    e.preventDefault();
+    this.props.delete(this.state.id)
+    this.toggle();
   }
 
   render() {
@@ -105,7 +114,7 @@ class EditItem extends Component {
                 <footer className="modal-card-foot">
                   <button type="submit" value="Edit Item" className="button is-success">Submit</button>
                   <button onClick={this.toggle} className="button">Cancel</button>
-                  <button className="button is-danger">Delete Item</button>
+                  <button onClick={this.handleDelete} className="button is-danger">Delete Item</button>
                 </footer>
               </form>
             </section>

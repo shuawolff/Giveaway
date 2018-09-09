@@ -7,33 +7,33 @@ function Header(props) {
   return (
     <div>
       <header>
-        <nav class="navbar" role="navigation" aria-label="dropdown navigation">
+        <nav className="navbar" role="navigation" aria-label="dropdown navigation">
           {
             props.loggedIn
               ?
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
+              <div className="navbar-item has-dropdown is-hoverable">
+                <a className="navbar-link">
                   Account
           </a>
-                <div class="navbar-dropdown is-right">
-                  <a  onClick={props.createAdmin} class="navbar-item">
+                <div className="navbar-dropdown is-right">
+                  <a  onClick={props.createAdmin} className="navbar-item">
                     Create New Item
       </a>
-                  <a onClick={props.admin} class="navbar-item">
+                  <a onClick={props.admin} className="navbar-item">
                     Account Info
       </a>
-                  <a onClick={props.logout} class="navbar-item">
+                  <a onClick={props.logout} className="navbar-item">
                     Log Out
       </a>
                 </div>
               </div>
               :
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
+              <div className="navbar-item has-dropdown is-hoverable">
+                <a className="navbar-link">
                   Log In
           </a>
-                <div class="navbar-dropdown is-right">
-                  <a onClick={toggle} class="navbar-item">
+                <div className="navbar-dropdown is-right">
+                  <a onClick={toggle} className="navbar-item">
                     Log in
       </a>
                 </div>

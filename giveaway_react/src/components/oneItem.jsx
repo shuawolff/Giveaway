@@ -31,7 +31,7 @@ return (
         }
       </footer>
     </div>
-    <EditItem active={props.editModal} toggle={toggleEdit} name={props.item.name} address={props.item.address} description={props.item.description} image_url={props.item.image_url} id={props.item.id} update={props.update}/>
+    <EditItem active={props.editModal} toggle={toggleEdit} name={props.item.name} address={props.item.address} description={props.item.description} image_url={props.item.image_url} id={props.item.id} update={props.update} delete={props.delete}/>
   </div>
 )
 }

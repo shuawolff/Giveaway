@@ -16,6 +16,7 @@ class UserItems extends Component {
     this.toggleShow = this.toggleShow.bind(this)
     this.toggleShowModal = this.toggleShowModal.bind(this)
     this.handeUpdate = this.handeUpdate.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
   componentDidMount() {
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
@@ -39,6 +40,9 @@ class UserItems extends Component {
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
       deleteItem(id)
       .then(data => {
+          this.setState({
+              showModal: 'modal'
+          })
         userItems(user)
         .then(data => this.setState({ items: data.items }));
       })
@@ -75,7 +79,7 @@ class UserItems extends Component {
             Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
           </div>)
         })}
-        <OneItem active={this.state.showModal} item={this.state.item} toggle={this.props.toggle} toggleShow={this.toggleShowModal} edit={true} editModal={this.props.editModal} update={this.handeUpdate}/>
+        <OneItem active={this.state.showModal} item={this.state.item} toggle={this.props.toggle} toggleShow={this.toggleShowModal} edit={true} editModal={this.props.editModal} update={this.handeUpdate} delete={this.handleDelete}/>
       </main>
     )
   }
