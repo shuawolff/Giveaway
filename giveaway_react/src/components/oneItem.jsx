@@ -4,6 +4,7 @@ import 'moment-timezone';
 import EditItem from './EditItem';
 
 function OneItem(props) {
+  // Calls the function to toggle the edit modal
   function toggleEdit() {
     props.toggle('editModal')
   }
@@ -24,6 +25,7 @@ return (
         Posted: <Moment fromNow>{props.item.created_at}</Moment>
       </section>
       <footer className="modal-card-foot">
+      {/* Conditionally renders the Edit button if this is the users item */}
         {props.edit ?
           <button onClick={toggleEdit}>Edit</button>
           :

@@ -18,6 +18,7 @@ class UserItems extends Component {
     this.handeUpdate = this.handeUpdate.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
   }
+  // Pulls the user id from the jwt token and sets the items to state to be rendered 
   componentDidMount() {
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
     userItems(user)
@@ -60,9 +61,8 @@ handleDelete(id) {
       userItems(user)
         .then(data => this.setState({ items: data.items }));
     })
-    this.props.rerender();
 }
-
+// Toggles the showOne modal and sets the item to state
 toggleShow(e) {
   e.preventDefault();
   oneItem(e.target.id)
@@ -72,7 +72,7 @@ toggleShow(e) {
     item: e.target.id
   })
 }
-
+// Toggles show modal on and off
 toggleShowModal() {
   this.state.showModal === "modal is-active" ?
     this.setState({

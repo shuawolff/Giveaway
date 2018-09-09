@@ -17,7 +17,7 @@ header {
   grid-area: header;
   text-align: center;
   font-size: 75px;
-  background: black;
+  background: rgb(0, 0, 0);
   position: fixed;
   top:0px; 
   left:0px; 
@@ -94,8 +94,12 @@ label {
   margin-right: 5px;
 }
 
-nav{
+nav {
   font-size: 15px;
   float: right;
   width: 125px
+}
+
+h1 {
+  color: white;
 }

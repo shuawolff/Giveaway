@@ -56,6 +56,7 @@ class App extends Component {
 
 }
 
+// If any of the filter boxes are checked only fetch items in those categories otherwise fetch all items
   itemFilters(categories) {
     if (categories) {
       FilteredItems(categories)
@@ -66,6 +67,7 @@ class App extends Component {
     }
   }
 
+// Toggles the modal
   toggleModal(modal) {
     this.state[modal] === "modal is-active" ?
       this.setState({
@@ -79,12 +81,14 @@ class App extends Component {
       })
   }
 
+  // Handles form inputs
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  // Saves new items and resets state with new items
   saveItem(item) {
     saveItem({"name": item.name, "address": item.address, "description": item.description, "user_id": item.user_id, "image_url": item.image_url, "categories": item.categories})
     .then(data => {
@@ -96,6 +100,7 @@ class App extends Component {
     })
   }
 
+  // Logs out and removes token
   logout() {
     localStorage.removeItem("jwt")
     this.setState({
@@ -106,31 +111,33 @@ class App extends Component {
     })
   }
 
+  // When called switches to the admin view
   setAdmin() {
     this.setState({
       currentView: 'Admin'
     })
   }
-
+// Switches to admin and opens the create modal
   setAdminCreate() {
     this.setState({
       currentView: 'Admin',
       createModal: 'modal is-active'
     })
   }
-
+// Switches view to the Homepage
   setHomepage() {
     this.setState({
       currentView: 'Homepage'
     })
   }
-
+// Changes state so page is rerendered after an item is deleted
   rerenderAfterDelete() {
     this.setState({
       rerender: !this.state.rerender
     })
   }
 
+  // Logs in a user or lets them know the credentials were invalid
   login() {
     const url = `http://localhost:3000/user_token`;
     const body = { "auth": { "email": this.state.email, "password": this.state.password } }
@@ -158,10 +165,10 @@ class App extends Component {
         this.setState({
           registering: "Credentials are invalid"
         })
-        console.log(err);
       })
   }
 
+  // Registers a new user
   register() {
     const url = `http://localhost:3000/users`
     const body = { "user": { "email": this.state.email, "password": this.state.password } }
@@ -181,6 +188,7 @@ class App extends Component {
       .catch(err => err.message)
   }
 
+  // Renders a view dependant on the currentView in State
   switchView() {
     switch (this.state.currentView) {
       case 'Homepage':

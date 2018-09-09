@@ -28,7 +28,7 @@ class EditItem extends Component {
       })
     }
   }
-
+// Toggle the modal closed and resets the form
   toggle() {
     this.props.toggle('editModal')
     this.setState({

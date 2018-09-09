@@ -14,7 +14,7 @@ class Items extends Component {
     this.toggleShow = this.toggleShow.bind(this)
     this.toggleModal = this.toggleModal.bind(this)
   }
-
+// Opens the showOne modal and sets the item selected to state
   toggleShow(e) {
     e.preventDefault();
     oneItem(e.target.id)
@@ -25,17 +25,7 @@ class Items extends Component {
     })
   }
 
-  toggleloginModal() {
-    this.state.loginModal === "modal is-active" ?
-    this.setState({
-      showModal: "modal"
-    })
-    :
-    this.setState({
-      showModal: "modal is-active"
-    })
-  }
-
+  // Toggles the showOne Modal
   toggleModal() {
     this.state.showModal === "modal is-active" ?
     this.setState({
@@ -48,12 +38,13 @@ class Items extends Component {
   }
 
   render() {
+    // FIlters items by what is being searched
     let items = this.props.items.filter(item => item.name.toLowerCase().includes(this.props.search.toLowerCase()));
     return (
       <main>
         {items.map(item => {
           return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
-            <p id={item.id}>{item.name}</p>
+            <p id={item.id}><strong>{item.name}</strong></p>
             <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />
             Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
           </div>)

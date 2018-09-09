@@ -8,6 +8,7 @@ class Filter extends Component {
     }
     this.onClick = this.onClick.bind(this)
   }
+  // When checkbox is clicked it adds the value to the string in state and removes from the string when unchecked
   onClick(e) {
     let num = e.target.value
     if (e.target.checked) {
@@ -20,7 +21,7 @@ class Filter extends Component {
       })
     }
   }
-
+// Calls the function to fetch items with the checked items passed in
   FilterItems() {
     this.props.onSubmit(this.state.checked);
   }

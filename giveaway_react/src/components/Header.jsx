@@ -8,34 +8,35 @@ function Header(props) {
     <div>
       <header>
         <nav className="navbar" role="navigation" aria-label="dropdown navigation">
+        {/* If logged in shows the menu to see account and log out otherwise shows log in menu */}
           {
             props.loggedIn
               ?
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">
                   Account
-          </a>
+                </a>
                 <div className="navbar-dropdown is-right">
                   <a  onClick={props.createAdmin} className="navbar-item">
                     Create New Item
-      </a>
+                  </a>
                   <a onClick={props.admin} className="navbar-item">
                     Account Info
-      </a>
+                  </a>
                   <a onClick={props.logout} className="navbar-item">
                     Log Out
-      </a>
+                  </a>
                 </div>
               </div>
               :
               <div className="navbar-item has-dropdown is-hoverable">
                 <a className="navbar-link">
                   Log In
-          </a>
+                </a>
                 <div className="navbar-dropdown is-right">
                   <a onClick={toggle} className="navbar-item">
                     Log in
-      </a>
+                </a>
                 </div>
               </div>
           }
@@ -45,13 +46,7 @@ function Header(props) {
           <p className="control is-expanded">
             <input onChange={props.handleChange} id="input" className="input" name="searchBar" type="text" placeholder="Find an item by name" />
           </p>
-          {/* <p className="control">
-            <a id="is-info" className="button is-info">
-              Search
-          </a>
-          </p> */}
         </div>
-        <a className="button">Create New Item</a>
       </header >
       <div className={props.active}>
         <div className="modal-background"></div>
