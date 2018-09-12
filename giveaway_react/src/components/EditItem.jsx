@@ -4,7 +4,7 @@ class EditItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.name,
+      Item_name: this.props.name,
       description: this.props.description,
       address: this.props.address,
       image_url: this.props.image_url,
@@ -20,7 +20,7 @@ class EditItem extends Component {
     // Checks if the props changed and if so resets the state
     if (this.props.id !== prevProps.id) {
       this.setState({
-        name: this.props.name,
+        Item_name: this.props.name,
         description: this.props.description,
         address: this.props.address,
         image_url: this.props.image_url,
@@ -32,7 +32,7 @@ class EditItem extends Component {
   toggle() {
     this.props.toggle('editModal')
     this.setState({
-      name: '',
+      Item_name: '',
       description: '',
       address: '',
       image_url: '',
@@ -71,7 +71,7 @@ class EditItem extends Component {
               <form onSubmit={this.handleSubmit}>
                 <label htmlFor="name">Item Name: </label>
                 <input
-                  name="name"
+                  name="Item_name"
                   onChange={this.handleChange}
                   value={this.state.name}
                   required="required"

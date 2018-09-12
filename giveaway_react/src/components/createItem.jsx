@@ -21,13 +21,14 @@ class CreateItem extends Component {
   componentDidMount() {
     let user = jwtDecode(localStorage.getItem("jwt")).sub;
     this.props.categories.map(c => {
-      this.setState({
-       [c.name]: false,
+      return this.setState({
+       [c.id]: false,
        user_id: user
      })
    })
   }
-  toggle() {
+  toggle(e) {
+    e.preventDefault();
     this.props.toggle('createModal')
     this.setState({
       name: '',
@@ -37,7 +38,7 @@ class CreateItem extends Component {
       categories: '',
     })
     this.props.categories.map(c => {
-       this.setState({
+       return this.setState({
         [c.name]: false
       })
     })
@@ -65,18 +66,17 @@ class CreateItem extends Component {
 
 
   onClick(e) {
-    let num = e.target.value
     let name = e.target.name
     if (this.state[name]=== true) {
       this.setState(prevState => {
-        prevState.categories = prevState.categories.replace(num, "")
+        prevState.categories = prevState.categories.replace(name, "")
       })
       this.setState({
         [name]: false
       })
     } else {
       this.setState(prevState => {
-        prevState.categories += num
+        prevState.categories += name
       })
       this.setState({
         [name]: true
@@ -144,7 +144,7 @@ class CreateItem extends Component {
                 {this.props.categories.map(c => {
                   return (<div key={c.id}>
                     <label htmlFor={c.name}>{c.name}</label>
-                    <input onClick={this.onClick} type="checkbox" name={c.name} value={c.id} checked={this.state[c.name]} /><br />
+                    <input onChange={this.onClick} type="checkbox" name={c.id} checked={this.state[c.id]} /><br />
                   </div>)
                 })}
               <br />

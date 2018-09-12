@@ -17,7 +17,7 @@ header {
   grid-area: header;
   text-align: center;
   font-size: 75px;
-  background: rgb(0, 0, 0);
+  background: grey;
   position: fixed;
   top:0px; 
   left:0px; 

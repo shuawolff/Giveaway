@@ -7,7 +7,7 @@ function Header(props) {
   return (
     <div>
       <header>
-        <nav className="navbar" role="navigation" aria-label="dropdown navigation">
+        <nav className="navbar" aria-label="dropdown navigation">
         {/* If logged in shows the menu to see account and log out otherwise shows log in menu */}
           {
             props.loggedIn

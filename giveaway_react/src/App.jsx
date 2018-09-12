@@ -155,7 +155,7 @@ class App extends Component {
         registering: ''
       }))
       .then(() => {
-        this.state.isLoggedIn === true
+        return this.state.isLoggedIn === true
           ?
           this.toggleModal('loginModal')
           :
@@ -203,6 +203,13 @@ class App extends Component {
           <React.Fragment>
           <Create homepage={this.setHomepage} active={this.state.createModal} toggle={this.toggleModal} categories={this.state.categories} onSubmit={this.saveItem}/>
           <UserItems editModal={this.state.editModal} toggle={this.toggleModal} rerender={this.rerenderAfterDelete} rerenderCreate={this.state.rerender} search={this.state.searchBar}/>
+          </React.Fragment>
+        )
+        default: 
+        return (
+          <React.Fragment>
+            <Filter categories={this.state.categories} onSubmit={this.itemFilters} isLoggedIn={this.state.isLoggedIn} toggleLogin={this.toggleModal} />
+            <Items items={this.state.items} toggle={this.toggleModal} search={this.state.searchBar}/>
           </React.Fragment>
         )
     }

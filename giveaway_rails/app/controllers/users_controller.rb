@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def getItems
     id = params[:id]
-    render json: {items: User.find(id).items}
+    render json: {items: User.find(id).items.order({created_at: :desc})}
   end
 
   # GET /users/1
