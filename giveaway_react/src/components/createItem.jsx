@@ -51,7 +51,6 @@ class CreateItem extends Component {
   }
 
   handleSubmit(evt) {
-    debugger
     evt.preventDefault();
     this.props.onSubmit(this.state);
     this.setState({
