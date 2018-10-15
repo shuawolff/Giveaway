@@ -44,7 +44,7 @@ class Items extends Component {
       <main>
         {items.map(item => {
           return (<div id={item.id} onClick={this.toggleShow} key={item.id} className="child">
-            <p id={item.id}><strong>{item.name}</strong></p>
+            <p className='itemName' id={item.id}>{item.name}</p>
             <img className="img" id={item.id} src={item.image_url} alt="Item" /><br />
             Posted: <Moment id={item.id} fromNow>{item.created_at}</Moment>
           </div>)

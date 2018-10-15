@@ -139,7 +139,7 @@ class App extends Component {
 
   // Logs in a user or lets them know the credentials were invalid
   login() {
-    const url = `http://localhost:3000/user_token`;
+    const url = `https://hidden-bastion-24577.herokuapp.com/user_token`;
     const body = { "auth": { "email": this.state.email, "password": this.state.password } }
     const init = {
       method: 'POST',
@@ -170,7 +170,8 @@ class App extends Component {
 
   // Registers a new user
   register() {
-    const url = `http://localhost:3000/users`
+    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email)) {
+    const url = `https://hidden-bastion-24577.herokuapp.com/users`
     const body = { "user": { "email": this.state.email, "password": this.state.password } }
     const init = {
       method: 'POST',
@@ -186,6 +187,11 @@ class App extends Component {
         })
       })
       .catch(err => err.message)
+    } else {
+      this.setState({
+        registering: "Please enter a valid email"
+      })
+    }
   }
 
   // Renders a view dependant on the currentView in State

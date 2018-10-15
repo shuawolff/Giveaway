@@ -39,7 +39,7 @@ class CreateItem extends Component {
     })
     this.props.categories.map(c => {
        return this.setState({
-        [c.name]: false
+        [c.id]: false
       })
     })
   }

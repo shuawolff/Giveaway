@@ -21,7 +21,7 @@ function OneItem(props) {
           <strong><p>{props.item.name}</p></strong><br />
           <img id="img" src={props.item.image_url} alt="Item" /><br />
           <p>Description: <br />{props.item.description}</p>
-          <p>Pickup at: {props.item.address}</p>
+          <p>Pickup at: <a target="_blank" href={`https://www.google.com/maps/search/?api=1&query=${props.item.address}`} >{props.item.address}</a></p>
           Posted: <Moment fromNow>{props.item.created_at}</Moment>
         </section>
         <footer className="modal-card-foot">

@@ -42,6 +42,7 @@ handeUpdate(item) {
   let user = jwtDecode(localStorage.getItem("jwt")).sub;
   updateItem(item)
     .then(data => {
+      this.props.rerender();
       this.setState({
         item: data
       })

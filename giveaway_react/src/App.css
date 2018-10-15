@@ -16,12 +16,12 @@
 header {
   grid-area: header;
   text-align: center;
-  font-size: 75px;
+  font-size: 5vw;
   background: grey;
   position: fixed;
   top:0px; 
   left:0px; 
-  height:150px; 
+  height:21vh; 
   right:0px;
   overflow:hidden;
 }
@@ -70,9 +70,9 @@ footer {
 
 #input {
   background: white;
-  height: 35px;
-  width: 20vw;
-  margin-left: 65vw;
+  height: 5vh;
+  width: 220px;
+  margin-left: 2vw;
   margin-top: 10px;
   font-size: 20px;
   margin-bottom: 1px;
@@ -102,4 +102,8 @@ nav {
 
 h1 {
   color: white;
+}
+
+.itemName {
+  font-weight: bold
 }

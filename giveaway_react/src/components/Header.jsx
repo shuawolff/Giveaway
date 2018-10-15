@@ -17,9 +17,9 @@ function Header(props) {
                   Account
                 </a>
                 <div className="navbar-dropdown is-right">
-                  <a  onClick={props.createAdmin} className="navbar-item">
+                  {/* <a  onClick={props.createAdmin} className="navbar-item">
                     Create New Item
-                  </a>
+                  </a> */}
                   <a onClick={props.admin} className="navbar-item">
                     Account Info
                   </a>

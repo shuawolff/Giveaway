@@ -1,4 +1,4 @@
-const BASE_URL = 'hidden-bastion-24577.herokuapp.com';
+const BASE_URL = 'https://hidden-bastion-24577.herokuapp.com';
 
 export function getAllItems() {
     return fetch(BASE_URL + '/items')
